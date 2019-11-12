@@ -17,6 +17,7 @@
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
+
     th, td {
         border-bottom: 1px solid #ddd;
         padding: 10px 5px;
@@ -45,7 +46,7 @@
         <td th:text="${school.capacity}">capacity</td>
         <td th:text="${school.country}">country</td>
         <td><a th:href="@{/school(id=${school.id})}">Edit</a></td>
-        <td><a th:href="@{/school(delete=${school.id})}">Remove</a></td>
+        <td><a th:href="@{/school/delete(id=${school.id})}">Remove</a></td>
     </tr>
     </tbody>
 </table>

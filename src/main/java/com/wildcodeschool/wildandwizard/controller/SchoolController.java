@@ -5,6 +5,7 @@ import com.wildcodeschool.wildandwizard.repository.SchoolRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,34 +24,33 @@ public class SchoolController {
 
     @GetMapping("/school")
     public String getSchool(Model model,
-                            @RequestParam(required = false, defaultValue = "-1") Long delete,
                             @RequestParam(required = false) Long id) {
 
-        if (delete != -1) {
-            repository.deleteById(delete);
-            return "redirect:schools";
-        }
+        School school = new School();
         if (id != null) {
-            model.addAttribute("school", repository.findById(id));
+            school = repository.findById(id);
         }
+        model.addAttribute("school", school);
 
         return "school";
     }
 
     @PostMapping("/school")
-    public String postSchool(Model model,
-                             @RequestParam Long id,
-                             @RequestParam String name,
-                             @RequestParam Long capacity,
-                             @RequestParam String country) {
+    public String postSchool(@ModelAttribute School school) {
 
-        School school = new School(id, name, capacity, country);
-        if (id != -1) {
-            model.addAttribute("school", repository.update(school));
+        if (school.getId() != null) {
+            repository.update(school);
         } else {
-            model.addAttribute("school", repository.save(school));
+            repository.save(school);
         }
+        return "redirect:/schools";
+    }
 
-        return "redirect:schools";
+    @GetMapping("/school/delete")
+    public String deleteSchool(@RequestParam Long id) {
+
+        repository.deleteById(id);
+
+        return "redirect:/schools";
     }
 }

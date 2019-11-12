@@ -2,20 +2,20 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${school} ? 'Edit School' : 'Create School'">School</title>
+    <title>School</title>
 </head>
 <body>
-<h3 th:text="${school} ? 'Edit School' : 'Create School'">School</h3>
-<form action="/school" method="post">
-    <input th:value="${school} ? ${school.id} : '-1'" name="id" type="hidden">
+<h3 th:text="${school.id} ? 'Edit School' : 'Create School'">School</h3>
+<form method="post" th:action="@{/school}" th:object="${school}">
+    <input name="id" th:field="*{id}" type="hidden">
     <label for="school-name">Name:</label>
-    <input th:value="${school} ? ${school.name} : ''" id="school-name" name="name" placeholder="Wild Code School" required type="text">
+    <input id="school-name" name="name" placeholder="Wild Code School" required th:field="*{name}" type="text">
     <br><br>
     <label for="school-capacity">Capacity:</label>
-    <input th:value="${school} ? ${school.capacity} : ''" id="school-capacity" name="capacity" placeholder="40" required type="number">
+    <input id="school-capacity" name="capacity" placeholder="40" required th:field="*{capacity}" type="number">
     <br><br>
     <label for="school-country">Country:</label>
-    <input th:value="${school} ? ${school.country} : ''" id="school-country" name="country" placeholder="France" required type="text">
+    <input id="school-country" name="country" placeholder="France" required th:field="*{country}" type="text">
     <br><br>
     <input type="submit" value="Send">
 </form>

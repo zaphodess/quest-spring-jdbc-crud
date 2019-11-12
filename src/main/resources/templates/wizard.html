@@ -2,29 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${wizard} ? 'Edit Wizard' : 'Create Wizard'">Wizard</title>
+    <title>Wizard</title>
 </head>
 <body>
-<h3 th:text="${wizard} ? 'Edit Wizard' : 'Create Wizard'">Wizard</h3>
-<form action="/wizard" method="post">
-    <input th:value="${wizard} ? ${wizard.id} : '-1'" name="id" type="hidden">
+<h3 th:text="${wizard.id} ? 'Edit Wizard' : 'Create Wizard'">Wizard</h3>
+<form method="post" th:action="@{/wizard}" th:object="${wizard}">
+    <input name="id" th:field="*{id}" type="hidden">
     <label for="wizard-first-name">First name:</label>
-    <input th:value="${wizard} ? ${wizard.firstName} : ''" id="wizard-first-name" name="firstName" placeholder="Harry" required type="text">
+    <input id="wizard-first-name" name="firstName" placeholder="Harry" required th:field="*{firstName}" type="text">
     <br><br>
     <label for="wizard-last-name">Last name:</label>
-    <input th:value="${wizard} ? ${wizard.lastName} : ''" id="wizard-last-name" name="lastName" placeholder="Potter" required type="text">
+    <input id="wizard-last-name" name="lastName" placeholder="Potter" required th:field="*{lastName}" type="text">
     <br><br>
     <label for="wizard-birthday">Birthday:</label>
-    <input th:value="${wizard} ? ${wizard.birthday} : ''" id="wizard-birthday" name="birthday" placeholder="1980-07-31" required type="date">
+    <input id="wizard-birthday" name="birthday" placeholder="1980-07-31" required th:field="*{birthday}" type="date">
     <br><br>
     <label for="wizard-birth-place">Birth Place:</label>
-    <input th:value="${wizard} ? ${wizard.birthPlace} : ''" id="wizard-birth-place" name="birthPlace" placeholder="London" required type="text">
+    <input id="wizard-birth-place" name="birthPlace" placeholder="London" th:field="*{birthPlace}" type="text">
     <br><br>
     <label for="wizard-biography">Biography:</label>
-    <textarea th:text="${wizard} ? ${wizard.biography} : ''" id="wizard-biography" name="biography"></textarea>
+    <textarea id="wizard-biography" name="biography" th:field="*{biography}"></textarea>
     <br><br>
     <label for="wizard-is-muggle">Is Muggle ?</label>
-    <input th:checked="${wizard} ? ${wizard.muggle} : 'false'" id="wizard-is-muggle" name="muggle" type="checkbox" value="true">
+    <input id="wizard-is-muggle" name="muggle" th:field="*{muggle}" type="checkbox">
     <br><br>
     <input type="submit" value="Send">
 </form>

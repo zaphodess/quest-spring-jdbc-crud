@@ -5,10 +5,9 @@ import com.wildcodeschool.wildandwizard.repository.WizardRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.sql.Date;
 
 @Controller
 public class WizardController {
@@ -25,37 +24,33 @@ public class WizardController {
 
     @GetMapping("/wizard")
     public String getWizard(Model model,
-                            @RequestParam(required = false, defaultValue = "-1") Long delete,
                             @RequestParam(required = false) Long id) {
 
-        if (delete != -1) {
-            repository.deleteById(delete);
-            return "redirect:wizards";
-        }
+        Wizard wizard = new Wizard();
         if (id != null) {
-            model.addAttribute("wizard", repository.findById(id));
+            wizard = repository.findById(id);
         }
+        model.addAttribute("wizard", wizard);
 
         return "wizard";
     }
 
     @PostMapping("/wizard")
-    public String postWizard(Model model,
-                             @RequestParam Long id,
-                             @RequestParam String firstName,
-                             @RequestParam String lastName,
-                             @RequestParam Date birthday,
-                             @RequestParam(required = false, defaultValue = "") String birthPlace,
-                             @RequestParam(required = false, defaultValue = "") String biography,
-                             @RequestParam(required = false, defaultValue = "false") boolean muggle) {
+    public String postWizard(@ModelAttribute Wizard wizard) {
 
-        Wizard wizard = new Wizard(id, firstName, lastName, birthday, birthPlace, biography, muggle);
-        if (id != -1) {
-            model.addAttribute("wizard", repository.update(wizard));
+        if (wizard.getId() != null) {
+            repository.update(wizard);
         } else {
-            model.addAttribute("wizard", repository.save(wizard));
+            repository.save(wizard);
         }
+        return "redirect:/wizards";
+    }
 
-        return "redirect:wizards";
+    @GetMapping("/wizard/delete")
+    public String deleteWizard(@RequestParam Long id) {
+
+        repository.deleteById(id);
+
+        return "redirect:/wizards";
     }
 }

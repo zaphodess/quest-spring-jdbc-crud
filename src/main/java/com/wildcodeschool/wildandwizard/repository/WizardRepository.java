@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WizardRepository implements CrudRepository<Wizard> {
+public class WizardRepository implements CrudDao<Wizard> {
 
     private final static String DB_URL = "jdbc:mysql://localhost:3306/spring_jdbc_quest?serverTimezone=GMT";
     private final static String DB_USER = "h4rryp0tt3r";

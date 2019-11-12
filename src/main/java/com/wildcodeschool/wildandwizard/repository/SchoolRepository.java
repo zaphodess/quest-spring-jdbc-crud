@@ -4,7 +4,7 @@ import com.wildcodeschool.wildandwizard.entity.School;
 
 import java.util.List;
 
-public class SchoolRepository implements CrudRepository<School> {
+public class SchoolRepository implements CrudDao<School> {
 
     private final static String DB_URL = "jdbc:mysql://localhost:3306/spring_jdbc_quest?serverTimezone=GMT";
     private final static String DB_USER = "h4rryp0tt3r";
