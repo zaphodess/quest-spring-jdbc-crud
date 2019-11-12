@@ -11,7 +11,7 @@ public class SchoolRepository implements CrudDao<School> {
     private final static String DB_PASSWORD = "Horcrux4life!";
 
     @Override
-    public School save(School entity) {
+    public School save(School school) {
 
         // TODO Create
         return null;
@@ -32,7 +32,7 @@ public class SchoolRepository implements CrudDao<School> {
     }
 
     @Override
-    public School update(School entity) {
+    public School update(School school) {
 
         // TODO Update
         return null;
