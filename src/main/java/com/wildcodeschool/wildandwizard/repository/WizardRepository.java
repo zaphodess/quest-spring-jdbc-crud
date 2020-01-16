@@ -21,11 +21,11 @@ public class WizardRepository implements CrudDao<Wizard> {
 		ResultSet generatedKeys = null;
         try {
             connection = DriverManager.getConnection(
-                    DB_URL, DB_USER, DB_PASSWORD
+            		DB_URL, DB_USER, DB_PASSWORD
             );
             statement = connection.prepareStatement(
-                    "INSERT INTO wizard (first_name, last_name, birthday, birth_place, biography, is_muggle) VALUES (?, ?, ?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS
+            		"INSERT INTO wizard (first_name, last_name, birthday, birth_place, biography, is_muggle) VALUES (?, ?, ?, ?, ?, ?)",
+            		Statement.RETURN_GENERATED_KEYS
             );
             statement.setString(1, wizard.getFirstName());
             statement.setString(2, wizard.getLastName());
